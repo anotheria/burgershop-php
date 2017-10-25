@@ -10,11 +10,13 @@ class OrderController
 
     private $shopService;
 
-    public function __construct(ShopService $shopService){
+    public function __construct(ShopService $shopService)
+    {
         $this->shopService = $shopService;
     }
 
-    public function placeOrder(Request $request){
+    public function placeOrder(Request $request)
+    {
 
         $order = $this->shopService->placeOrder(
             [

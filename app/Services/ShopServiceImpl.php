@@ -88,14 +88,16 @@ class ShopServiceImpl implements ShopService
 
         $order = new Order();
 
-        foreach ($items as $itemName)
+        foreach ($items as $itemName) {
             $order->addItem($this->findItemByName($itemName));
+        }
 
         return $order;
 
     }
 
-    private function findItemByName($name){
+    private function findItemByName($name)
+    {
 
         foreach ($this->getShopableItems() as $categoryItems)
             foreach ($categoryItems as $item)

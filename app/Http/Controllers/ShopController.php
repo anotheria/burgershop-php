@@ -9,11 +9,13 @@ class ShopController
 
     private $shopService;
 
-    public function __construct(ShopService $shopService){
+    public function __construct(ShopService $shopService)
+    {
         $this->shopService = $shopService;
     }
 
-    public function enterShop(){
+    public function enterShop()
+    {
 
         $items = $this->shopService->getShopableItems();
 
