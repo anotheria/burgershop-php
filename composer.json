@@ -7,7 +7,7 @@
     "repositories" : [
         {
             "type": "vcs",
-            "url": "https://github.com/ogmudbone/moskito-php-test"
+            "url": "https://github.com/ogmudbone/moskito-php-agent"
         }
     ],
     "require": {
