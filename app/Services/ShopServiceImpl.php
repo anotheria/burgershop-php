@@ -2,10 +2,22 @@
 
 namespace App\Services;
 
+use Anotheria\MoskitoPHPAgent\producers\impl\CounterProducer;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 
 class ShopServiceImpl implements ShopService
 {
+
+    /**
+     * @var CounterProducer $ingridientsCounter
+     */
+    private $ingredientsCounter;
+
+    public function __construct()
+    {
+        $this->ingredientsCounter =
+            new CounterProducer('ingredients', 'php', 'php');
+    }
 
     public function getShopableItems()
     {
@@ -89,6 +101,7 @@ class ShopServiceImpl implements ShopService
         $order = new Order();
 
         foreach ($items as $itemName) {
+            $this->ingredientsCounter->incStats($itemName);
             $order->addItem($this->findItemByName($itemName));
         }
 
