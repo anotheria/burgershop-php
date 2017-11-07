@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use Anotheria\MoskitoPHPAgent\producers\impl\CounterProducer;
+use Anotheria\MoskitoPHPAgent\producers\impl\ServiceOrientedProducer;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 
 class ShopServiceImpl implements ShopService
@@ -12,11 +13,14 @@ class ShopServiceImpl implements ShopService
      * @var CounterProducer $ingridientsCounter
      */
     private $ingredientsCounter;
+    private $orderServiceProducer;
 
     public function __construct()
     {
         $this->ingredientsCounter =
             new CounterProducer('ingredients', 'php', 'php');
+        $this->orderServiceProducer =
+            new ServiceOrientedProducer('orderService', 'php', 'php');
     }
 
     public function getShopableItems()
@@ -98,13 +102,27 @@ class ShopServiceImpl implements ShopService
     public function placeOrder($items)
     {
 
+        $placeOrderWatcher = $this->orderServiceProducer->getWatcher('placeOrder');
+        $placeOrderWatcher->start();
+
         $order = new Order();
 
         foreach ($items as $itemName) {
+
+            $item = $this->findItemByName($itemName);
+
+            if($item == null)
+            {
+                $placeOrderWatcher->end(true);
+                throw new BadRequestHttpException('No such shoppable item: '  . $itemName);
+            }
+
             $this->ingredientsCounter->incStats($itemName);
-            $order->addItem($this->findItemByName($itemName));
+            $order->addItem($item);
+
         }
 
+        $placeOrderWatcher->end();
         return $order;
 
     }
@@ -117,7 +135,8 @@ class ShopServiceImpl implements ShopService
                 if($item['name'] == $name)
                     return new ShoppableItem($item['name'], $item['price']);
 
-        throw new BadRequestHttpException('No such shoppable item: '  . $name);
+        return null;
+
 
     }
 

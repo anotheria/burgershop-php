@@ -7,14 +7,14 @@
     "repositories" : [
         {
             "type": "vcs",
-            "url": "https://github.com/ogmudbone/moskito-php-agent"
+            "url": "https://github.com/anotheria/moskito-php-agent"
         }
     ],
     "require": {
         "php": ">=7.0.0",
         "laravel/framework": "5.5.*",
         "laravel/tinker": "~1.0",
-        "ogmudebone/moskito-php" : "dev-master"
+        "anotheria/moskito-php" : "dev-master"
     },
     "require-dev": {
 
