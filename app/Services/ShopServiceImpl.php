@@ -10,7 +10,7 @@ class ShopServiceImpl implements ShopService
 {
 
     /**
-     * @var CounterProducer $ingridientsCounter
+     * @var CounterProducer $ingredientsCounter
      */
     private $ingredientsCounter;
     private $orderServiceProducer;
