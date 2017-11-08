@@ -1,5 +1,5 @@
 {
-    "name": "laravel/laravel",
+    "name": "anotheria/burgershop-php",
     "description": "The Laravel Framework.",
     "keywords": ["framework", "laravel"],
     "license": "MIT",
@@ -14,7 +14,7 @@
         "php": ">=7.0.0",
         "laravel/framework": "5.5.*",
         "laravel/tinker": "~1.0",
-        "anotheria/moskito-php" : "dev-master"
+        "anotheria/moskito-php-agent" : "dev-master"
     },
     "require-dev": {
 
